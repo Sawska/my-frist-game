@@ -25,7 +25,7 @@ int main() {
     getmaxyx(stdscr, rows, cols); 
 
     // Initialize player and gun
-    Player player(cols / 2, rows / 2, 100, (cols / 2) + 1, rows / 2); 
+    Player player(cols / 2, rows / 2, 100); 
 
     std::thread inputThread(input_thread);
 
@@ -45,7 +45,7 @@ int main() {
         mvprintw(LINES - 1, 0, "Player position: %d, %d", player.getX(), player.getY());
 
         refresh();
-        usleep(1000000); // Sleep for 1 second
+        usleep(1000000);
     }
 
     inputThread.join();
