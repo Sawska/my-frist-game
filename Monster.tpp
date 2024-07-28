@@ -1,5 +1,4 @@
 #include "Monster.h"
-#include <ncurses.h>
 
 template <typename MoveStrategy>
 Monster<MoveStrategy>::Monster(int init_x, int init_y, int init_hp, MoveStrategy strategy)
@@ -17,7 +16,7 @@ void Monster<MoveStrategy>::take_damage() {
 template <typename MoveStrategy>
 void Monster<MoveStrategy>::move() {
     mvaddch(y, x, ' ');
-    move_strategy.move(x, y); 
+    move_strategy.move(x, y);
     if (x < 0 || x >= COLS || y < 0 || y >= LINES) {
         is_alive = false;
     }
@@ -31,7 +30,8 @@ void Monster<MoveStrategy>::print_monster() {
 }
 
 template <typename MoveStrategy>
-bool Monster<MoveStrategy>::is_alive() const {
-    return is_alive;
+void Monster<MoveStrategy>::check_if_took_damage(int bullet_x, int bullet_y) {
+    if ((bullet_x == x) && (bullet_y == y)) {
+        take_damage();
+    }
 }
-

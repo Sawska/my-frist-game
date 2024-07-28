@@ -1,22 +1,26 @@
 #ifndef MONSTER_H
 #define MONSTER_H
 
+#include <ncurses.h>
+
 template <typename MoveStrategy>
 class Monster {
-private:
-    int x;
-    int y;
-    int hp;
-    bool is_alive;
-    MoveStrategy move_strategy;
-
 public:
     Monster(int init_x, int init_y, int init_hp, MoveStrategy strategy);
 
     void take_damage();
     void move();
     void print_monster();
-    bool is_alive() const;
+    void check_if_took_damage(int bullet_x, int bullet_y);
+
+private:
+    int x;
+    int y;
+    int hp;
+    bool is_alive;
+    MoveStrategy move_strategy;
 };
 
-#endif
+#include "Monster.tpp"
+
+#endif // MONSTER_H

@@ -1,9 +1,11 @@
 #ifndef RIGHTTOLEFTMOVE_H
 #define RIGHTTOLEFTMOVE_H
 
-class RightToLeftMove {
+#include "MoveStrategy.h"
+
+class RightToLeftMove : public MoveStrategy {
 public:
-    void move(int& x, int& y) const {
+    void move(int& x, int& y) const override {
         x--;
     }
 };

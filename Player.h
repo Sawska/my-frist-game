@@ -1,12 +1,18 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "MonsterSpawner.h"
+#include <LeftToRightMove.h>
+#include <RightToLeftMove.h>
+
 class Player {
 private:
     int x;
     int y;
     int hp;
     bool is_gun_left;
+    MonsterSpawner<LeftToRightMove> leftToRightSpawner;
+    MonsterSpawner<RightToLeftMove> rightToLeftSpawner;
 
 public:
     Player(int init_x, int init_y, int init_hp);
@@ -28,4 +34,4 @@ public:
     int getY() const { return y; }
 };
 
-#endif
+#endif // PLAYER_H

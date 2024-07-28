@@ -4,7 +4,8 @@
 #include <iostream>
 
 Player::Player(int init_x, int init_y, int init_hp)
-    : x(init_x), y(init_y), hp(init_hp), is_gun_left(true) {}
+    : x(init_x), y(init_y), hp(init_hp), is_gun_left(true),
+      leftToRightSpawner(init_x, init_y), rightToLeftSpawner(init_x, init_y) {}
 
 void Player::shoot() {
     if (is_gun_left) {
@@ -31,8 +32,11 @@ void Player::shoot() {
 }
 
 void Player::bullet_trace(int x_temp) {
-    while(x_temp < 1000) {
-        mvaddch(y, x_temp+2, '-');
+    while (x_temp < COLS && x_temp >= 0) {
+        mvaddch(y, x_temp, '-');
+        refresh();
+        x_temp++;
+        usleep(50000);
     }
 }
 
@@ -73,7 +77,7 @@ void Player::clear_gun() {
 }
 
 void Player::print_gun() {
-    if(is_gun_left) {
+    if (is_gun_left) {
         print_gun_left();
     } else {
         print_gun_right();
@@ -81,22 +85,22 @@ void Player::print_gun() {
 }
 
 void Player::jump_gun() {
-    if(is_gun_left) {
-            mvaddch(y, x-1, 'z');
-        } else {
-            mvaddch(y, x+1, 'z');
-        }
+    if (is_gun_left) {
+        mvaddch(y, x - 1, 'z');
+    } else {
+        mvaddch(y, x + 1, 'z');
+    }
 }
 
 void Player::print_gun_right() {
-    mvaddch(y, x-1, ' ');
-    mvaddch(y, x+1, 'z');
-}
-void Player::print_gun_left() {
-    mvaddch(y, x+1, ' ');
-    mvaddch(y, x-1, 'z');
+    mvaddch(y, x - 1, ' ');
+    mvaddch(y, x + 1, 'z');
 }
 
+void Player::print_gun_left() {
+    mvaddch(y, x + 1, ' ');
+    mvaddch(y, x - 1, 'z');
+}
 
 void Player::print_character() {
     mvaddch(y, x, '@');
@@ -104,9 +108,9 @@ void Player::print_character() {
 }
 
 void Player::take_damage() {
-    if(hp == 0) {
+    if (hp <= 0) {
         clear();
         std::cout << "You lost" << std::endl;
-        exit(0)
+        exit(0);
     }
 }

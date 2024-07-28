@@ -3,6 +3,11 @@
         "*.ejs": "html",
         "iostream": "cpp",
         "cstdlib": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "locale": "cpp",
+        "new": "cpp",
+        "string": "cpp",
+        "typeinfo": "cpp",
+        "*.tpp": "cpp"
     }
 }

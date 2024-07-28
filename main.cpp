@@ -24,7 +24,7 @@ int main() {
     int rows, cols;
     getmaxyx(stdscr, rows, cols); 
 
-    // Initialize player and gun
+    
     Player player(cols / 2, rows / 2, 100); 
 
     std::thread inputThread(input_thread);
