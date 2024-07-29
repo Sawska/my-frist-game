@@ -30,8 +30,8 @@ void Monster<MoveStrategy>::print_monster() {
 }
 
 template <typename MoveStrategy>
-void Monster<MoveStrategy>::check_if_took_damage(int bullet_x, int bullet_y) {
-    if ((bullet_x == x) && (bullet_y == y)) {
+void Monster<MoveStrategy>::check_if_took_damage(int bullet_x) {
+    if (bullet_x == x) {
         take_damage();
     }
 }

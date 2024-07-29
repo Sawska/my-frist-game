@@ -8,6 +8,7 @@
         "new": "cpp",
         "string": "cpp",
         "typeinfo": "cpp",
-        "*.tpp": "cpp"
+        "*.tpp": "cpp",
+        "vector": "cpp"
     }
 }

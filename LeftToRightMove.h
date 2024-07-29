@@ -6,9 +6,8 @@
 class LeftToRightMove : public MoveStrategy {
 public:
     void move(int& x, int& y) const override {
-        x++;
+        ++x;
     }
 };
 
 #endif // LEFTTORIGHTMOVE_H
-

@@ -17,6 +17,7 @@ void Player::shoot() {
             usleep(50000);
             mvaddch(y, x_temp, ' ');
             x_temp--;
+            leftToRightSpawner.check_if_monster_took_damage(x_temp);
         }
     } else {
         int x_temp = x + 1;
@@ -27,16 +28,8 @@ void Player::shoot() {
             usleep(50000);
             mvaddch(y, x_temp, ' ');
             x_temp++;
+            rightToLeftSpawner.check_if_monster_took_damage(x_temp);
         }
-    }
-}
-
-void Player::bullet_trace(int x_temp) {
-    while (x_temp < COLS && x_temp >= 0) {
-        mvaddch(y, x_temp, '-');
-        refresh();
-        x_temp++;
-        usleep(50000);
     }
 }
 
@@ -84,14 +77,6 @@ void Player::print_gun() {
     }
 }
 
-void Player::jump_gun() {
-    if (is_gun_left) {
-        mvaddch(y, x - 1, 'z');
-    } else {
-        mvaddch(y, x + 1, 'z');
-    }
-}
-
 void Player::print_gun_right() {
     mvaddch(y, x - 1, ' ');
     mvaddch(y, x + 1, 'z');
@@ -105,6 +90,19 @@ void Player::print_gun_left() {
 void Player::print_character() {
     mvaddch(y, x, '@');
     print_gun();
+}
+
+void Player::check_if_player_got_hit() {
+    for (auto& monster : leftToRightSpawner.monsters) {
+        if ((x == monster.x) && (y == monster.y)) {
+            take_damage();
+        }
+    }
+    for (auto& monster : rightToLeftSpawner.monsters) {
+        if ((x == monster.x) && (y == monster.y)) {
+            take_damage();
+        }
+    }
 }
 
 void Player::take_damage() {

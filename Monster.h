@@ -7,17 +7,17 @@ template <typename MoveStrategy>
 class Monster {
 public:
     Monster(int init_x, int init_y, int init_hp, MoveStrategy strategy);
+    bool is_alive;
 
     void take_damage();
     void move();
     void print_monster();
-    void check_if_took_damage(int bullet_x, int bullet_y);
-
-private:
+    void check_if_took_damage(int bullet_x);
     int x;
     int y;
+
+private:
     int hp;
-    bool is_alive;
     MoveStrategy move_strategy;
 };
 

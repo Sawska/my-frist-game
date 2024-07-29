@@ -3,8 +3,8 @@
 
 class MoveStrategy {
 public:
-    virtual void move(int& x, int& y) const = 0;
     virtual ~MoveStrategy() = default;
+    virtual void move(int& x, int& y) const = 0;
 };
 
 #endif // MOVESTRATEGY_H
