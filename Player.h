@@ -11,6 +11,8 @@ private:
     int y;
     int hp;
     bool is_gun_left;
+    int monsters_killed;
+      int lifetime;
 
 public:
     Player(int init_x, int init_y, int init_hp);
@@ -23,11 +25,11 @@ public:
     void take_damage();
     void print_gun_right();
     void print_gun_left();
-    void jump_gun();
     void print_gun();
     void clear_gun();
-    void bullet_trace(int x_temp);
     void check_if_player_got_hit();
+     void increment_lifetime();
+    int get_lifetime() const;
 
 
     int getX() const { return x; }

@@ -2,10 +2,11 @@
 #include <ncurses.h>
 #include <unistd.h>
 #include <iostream>
+#define MONSTER_RATE 2
 
 Player::Player(int init_x, int init_y, int init_hp)
     : x(init_x), y(init_y), hp(init_hp), is_gun_left(true),
-      leftToRightSpawner(init_x, init_y), rightToLeftSpawner(init_x, init_y) {}
+      leftToRightSpawner(init_x, init_y,MONSTER_RATE), rightToLeftSpawner(init_x, init_y,MONSTER_RATE), monsters_killed(0) {}
 
 void Player::shoot() {
     if (is_gun_left) {
@@ -17,7 +18,7 @@ void Player::shoot() {
             usleep(50000);
             mvaddch(y, x_temp, ' ');
             x_temp--;
-            leftToRightSpawner.check_if_monster_took_damage(x_temp);
+            monsters_killed += leftToRightSpawner.check_if_monster_took_damage(x_temp);
         }
     } else {
         int x_temp = x + 1;
@@ -28,7 +29,7 @@ void Player::shoot() {
             usleep(50000);
             mvaddch(y, x_temp, ' ');
             x_temp++;
-            rightToLeftSpawner.check_if_monster_took_damage(x_temp);
+           monsters_killed += rightToLeftSpawner.check_if_monster_took_damage(x_temp);
         }
     }
 }
@@ -105,10 +106,21 @@ void Player::check_if_player_got_hit() {
     }
 }
 
+void Player::increment_lifetime()
+{
+    lifetime++;
+}
+
+int Player::get_lifetime() const
+{
+     return lifetime;
+}
+
 void Player::take_damage() {
+    hp--;
     if (hp <= 0) {
-        clear();
-        std::cout << "You lost" << std::endl;
+        clear();                                                    
+        std::cout << "You killed " << monsters_killed << " and lived for " << get_lifetime() << "seconds" << std::endl;
         exit(0);
     }
 }

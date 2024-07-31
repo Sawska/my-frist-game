@@ -12,7 +12,7 @@ public:
     void take_damage();
     void move();
     void print_monster();
-    void check_if_took_damage(int bullet_x);
+    int check_if_took_damage(int bullet_x);
     int x;
     int y;
 
